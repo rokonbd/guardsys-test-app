@@ -6,6 +6,8 @@ apidocument/api_doc.docx
 # SMS Config File
 config/sms.php
 
+note: I have used Twilio API for SMS.
+
 # APP installation
 Configaration Update: php artisan config:cache
 
