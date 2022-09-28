@@ -19,7 +19,7 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
-            'photo' => (!empty($this->photo)) ? public_path('storage/').$this->photo : '',
+            'photo' => (!empty($this->photo)) ? public_path('avatar/').$this->photo : '',
             'created_at' => $this->created_at->format('m-d-Y H:i:s'),
             'updated_at' => $this->updated_at->format('m-d-Y H:i:s'),
         ];

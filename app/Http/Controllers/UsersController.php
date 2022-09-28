@@ -69,7 +69,7 @@ class UsersController extends Controller
             if(isset($inputData['photo']) && !empty($inputData['photo'])){
                 $photo = $inputData['photo'];
                 $photoName = date('YmdHi').$photo->getClientOriginalName();
-                $photo->move(public_path('storage/'), $photoName);
+                $photo->move(public_path('avatar/'), $photoName);
                 $newUser->photo = $photoName;
             }
             $newUser->fill($request->input());
@@ -155,9 +155,9 @@ class UsersController extends Controller
             if(isset($inputData['photo']) && !empty($inputData['photo'])){
                 $photo = $inputData['photo'];
                 $photoName = date('YmdHi').$photo->getClientOriginalName();
-                $photo->move(public_path('storage/'), $photoName);
-                if(file_exists(public_path('storage/').$oldUser->photo)) {
-                    $flag = unlink(public_path('storage/').$oldUser->photo);
+                $photo->move(public_path('avatar/'), $photoName);
+                if(file_exists(public_path('avatar/').$oldUser->photo)) {
+                    $flag = unlink(public_path('avatar/').$oldUser->photo);
                 }
                 $oldUser->photo = $photoName;
             }
@@ -203,8 +203,8 @@ class UsersController extends Controller
                 //sent email after delete user
                 Mail::to($oldUser->email)->send(new SuspendedUserMail($oldUser));
                 //delete user profile image if it is exists
-                if(Storage::disk('local')->exists(public_path('avatar/').$oldUser->photo)) {
-                    $flag = Storage::disk('local')->delete(public_path('avatar/').$oldUser->photo);
+                if(file_exists(public_path('avatar/').$oldUser->photo)) {
+                    $flag = unlink(public_path('avatar/').$oldUser->photo);
                 }         
                 $msg = "This item has been deleted successfully!";
                 return $this->sendSuccess($oldUser, $msg);
